@@ -43,15 +43,10 @@ app.use(
       if (!origin) return callback(null, true);
       
       const allowedOrigins = [
-        'https://lightpink-sparrow-555902.hostingersite.com',
-        'https://deeppink-duck-988201.hostingersite.com',
+        'https://sikkaengineering.com',
+        'https://admin.sikkaengineering.com',
         'http://localhost:3000',
-        'https://palegreen-gnat-630379.hostingersite.com',
-        "https://honeydew-ibis-212250.hostingersite.com",
-        "https://sikka-mu.vercel.app",
-        'http://localhost:3001',
         'http://localhost:5173',
-        'http://127.0.0.1:3000',
         process.env.CLIENT_URL
       ].filter(Boolean);
       
