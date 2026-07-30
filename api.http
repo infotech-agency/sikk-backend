@@ -1,0 +1,319 @@
+### Variables
+@baseUrl = http://localhost:5000
+@api = {{baseUrl}}/api
+
+
+### ============================================================
+### Health check
+### ============================================================
+GET {{baseUrl}}/health
+
+
+### ============================================================
+### Swagger docs (open in browser)
+### ============================================================
+# {{baseUrl}}/api/docs
+
+
+### ============================================================
+### SERVICES
+### ============================================================
+
+### Create service
+POST {{api}}/services
+Content-Type: multipart/form-data; boundary=----Boundary
+
+------Boundary
+Content-Disposition: form-data; name="title"
+
+Project Management Consultancy
+------Boundary
+Content-Disposition: form-data; name="description"
+
+Comprehensive consultancy services covering every phase of project delivery.
+------Boundary
+Content-Disposition: form-data; name="keyCapabilities[]"
+
+Project Planning
+------Boundary
+Content-Disposition: form-data; name="keyCapabilities[]"
+
+Cost Control
+------Boundary
+Content-Disposition: form-data; name="image"; filename="service.jpg"
+Content-Type: image/jpeg
+
+< ./sample.jpg
+------Boundary--
+
+### Get all services (paginated)
+GET {{api}}/services?page=1&limit=10
+
+### Search services
+GET {{api}}/services?search=consultancy
+
+### Get service by ID
+# @name service
+GET {{api}}/services/{{SERVICE_ID}}
+
+### Update service (replace image)
+PUT {{api}}/services/{{SERVICE_ID}}
+Content-Type: multipart/form-data; boundary=----Boundary
+
+------Boundary
+Content-Disposition: form-data; name="title"
+
+Updated Consultancy Title
+------Boundary
+Content-Disposition: form-data; name="image"; filename="new-service.jpg"
+Content-Type: image/jpeg
+
+< ./sample.jpg
+------Boundary--
+
+### Delete service
+DELETE {{api}}/services/{{SERVICE_ID}}
+
+
+### ============================================================
+### JOBS
+### ============================================================
+
+### Create job
+POST {{api}}/jobs
+Content-Type: application/json
+
+{
+  "designation": "Site Engineer",
+  "jobTitle": "Senior Site Engineer",
+  "location": "Delhi",
+  "employmentType": "Full Time",
+  "jobDescription": "Responsible for project execution at the site.",
+  "requirements": ["B.Tech Civil", "3+ Years Experience", "AutoCAD Knowledge"]
+}
+
+### Get all jobs (paginated)
+GET {{api}}/jobs
+
+### Filter jobs by employment type
+GET {{api}}/jobs?employmentType=Full%20Time
+
+### Search jobs
+GET {{api}}/jobs?search=engineer
+
+### Get job by ID
+GET {{api}}/jobs/{{JOB_ID}}
+
+### Update job
+PUT {{api}}/jobs/{{JOB_ID}}
+Content-Type: application/json
+
+{
+  "location": "Mumbai"
+}
+
+### Delete job
+DELETE {{api}}/jobs/{{JOB_ID}}
+
+
+### ============================================================
+### PROJECTS
+### ============================================================
+
+### Create project (with hero + gallery images)
+POST {{api}}/projects
+Content-Type: multipart/form-data; boundary=----Boundary
+
+------Boundary
+Content-Disposition: form-data; name="projectTitle"
+
+NH-44 Highway Widening
+------Boundary
+Content-Disposition: form-data; name="location"
+
+Delhi - Agra, Uttar Pradesh
+------Boundary
+Content-Disposition: form-data; name="clientName"
+
+National Highways Authority of India
+------Boundary
+Content-Disposition: form-data; name="projectValue"
+
+INR 1,250 Crores
+------Boundary
+Content-Disposition: form-data; name="category"
+
+Infrastructure
+------Boundary
+Content-Disposition: form-data; name="status"
+
+Completed
+------Boundary
+Content-Disposition: form-data; name="projectDescription"
+
+Major highway widening project covering 200 km.
+------Boundary
+Content-Disposition: form-data; name="featured"
+
+true
+------Boundary
+Content-Disposition: form-data; name="projectImage"; filename="hero.jpg"
+Content-Type: image/jpeg
+
+< ./sample.jpg
+------Boundary
+Content-Disposition: form-data; name="projectImages"; filename="gallery1.jpg"
+Content-Type: image/jpeg
+
+< ./sample.jpg
+------Boundary
+Content-Disposition: form-data; name="projectImages"; filename="gallery2.jpg"
+Content-Type: image/jpeg
+
+< ./sample.jpg
+------Boundary--
+
+### Get all projects (paginated)
+GET {{api}}/projects
+
+### Filter projects by status
+GET {{api}}/projects?status=Completed
+
+### Filter projects by category
+GET {{api}}/projects?category=Infrastructure
+
+### Filter featured projects
+GET {{api}}/projects?featured=true
+
+### Search projects
+GET {{api}}/projects?search=highway
+
+### Get project by ID
+GET {{api}}/projects/{{PROJECT_ID}}
+
+### Update project (add new gallery images)
+PUT {{api}}/projects/{{PROJECT_ID}}
+Content-Type: multipart/form-data; boundary=----Boundary
+
+------Boundary
+Content-Disposition: form-data; name="status"
+
+Ongoing
+------Boundary
+Content-Disposition: form-data; name="projectImages"; filename="new-gallery.jpg"
+Content-Type: image/jpeg
+
+< ./sample.jpg
+------Boundary--
+
+### Delete project
+DELETE {{api}}/projects/{{PROJECT_ID}}
+
+
+### ============================================================
+### ABOUT US
+### ============================================================
+
+### Get About (auto-creates on first request)
+GET {{api}}/about
+
+### Update About
+PUT {{api}}/about
+Content-Type: application/json
+
+{
+  "title": "Building India's Future",
+  "description": "Engineering and infrastructure excellence.",
+  "mission": "Deliver world-class infrastructure.",
+  "vision": "Transform India's future.",
+  "values": ["Integrity", "Innovation", "Quality"]
+}
+
+
+### ============================================================
+### CAREER APPLICATIONS
+### ============================================================
+
+### Apply for a job (upload resume)
+POST {{api}}/careers/apply
+Content-Type: multipart/form-data; boundary=----Boundary
+
+------Boundary
+Content-Disposition: form-data; name="fullName"
+
+aayush4 Doe
+------Boundary
+Content-Disposition: form-data; name="email"
+
+john@example.com
+------Boundary
+Content-Disposition: form-data; name="phoneNumber"
+
+9876543210
+------Boundary
+Content-Disposition: form-data; name="positionAppliedFor"
+
+Senior Site Engineer
+------Boundary
+Content-Disposition: form-data; name="yearsOfExperience"
+
+5 Years
+------Boundary
+Content-Disposition: form-data; name="coverLetter"
+
+I would like to join your company.
+------Boundary
+Content-Disposition: form-data; name="resume"; filename="resume.pdf"
+Content-Type: application/pdf
+
+< ./sample.pdf
+------Boundary--
+
+### Get all applications (paginated)
+GET {{api}}/careers
+
+### Search applications
+GET {{api}}/careers?search=john
+
+### Get application by ID
+GET {{api}}/careers/6a368bf3e75c0871d2b4d720
+
+### Delete application (also removes resume from Cloudinary)
+DELETE {{api}}/careers/{{CAREER_ID}}
+
+
+### ============================================================
+### CONTACT FORM
+### ============================================================
+
+### Submit contact form
+POST {{api}}/contact
+Content-Type: application/json
+
+{
+  "name": "Aarav Sharma",
+  "email": "aarav@example.com",
+  "phone": "9876543210",
+  "subject": "Partnership enquiry",
+  "message": "We are an equipment supplier interested in partnering."
+}
+
+### Get all contacts (paginated)
+GET {{api}}/contact?page=1&limit=10
+
+### Search contacts
+GET {{api}}/contact?search=partnership
+
+### Get contact by ID
+GET {{api}}/contact/{{CONTACT_ID}}
+
+### Delete contact
+DELETE {{api}}/contact/{{CONTACT_ID}}
+
+
+### ============================================================
+### DASHBOARD STATISTICS
+### ============================================================
+
+### Get dashboard stats
+GET {{api}}/dashboard/stats

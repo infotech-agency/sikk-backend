@@ -1,0 +1,39 @@
+{
+  "name": "infrastructure-api-backend",
+  "version": "1.0.0",
+  "description": "Production-ready Node.js/Express backend for infrastructure company — CRUD, Cloudinary uploads, validation, pagination, Swagger docs.",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node src/utils/seed.js",
+    "build": "node --check src/server.js"
+  },
+  "keywords": [
+    "express",
+    "mongodb",
+    "mongoose",
+    "cloudinary",
+    "multer",
+    "swagger"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "cloudinary": "^2.10.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "helmet": "^8.2.0",
+    "mongoose": "^9.7.1",
+    "mongoose-paginate-v2": "^1.9.5",
+    "morgan": "^1.11.0",
+    "multer": "^2.2.0",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
