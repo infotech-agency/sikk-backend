@@ -44,6 +44,7 @@ app.use(
       
       const allowedOrigins = [
         'https://lightpink-sparrow-555902.hostingersite.com',
+        'https://deeppink-duck-988201.hostingersite.com',
         'http://localhost:3000',
         'https://palegreen-gnat-630379.hostingersite.com',
         "https://honeydew-ibis-212250.hostingersite.com",
