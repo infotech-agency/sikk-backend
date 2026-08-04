@@ -43,6 +43,28 @@ import { buildPaginationQuery } from "../utils/pagination.js";
  *     responses:
  *       201: { description: Project created }
  */
+
+// Add near top of file, after imports
+const normalizeFeatures = (input) => {
+  if (!input) return [];
+  if (Array.isArray(input)) {
+    return input.map((f) => String(f).trim()).filter(Boolean);
+  }
+  if (typeof input === "string") {
+    try {
+      const parsed = JSON.parse(input);
+      if (Array.isArray(parsed)) {
+        return parsed.map((f) => String(f).trim()).filter(Boolean);
+      }
+    } catch {
+      // not JSON, fall through to comma-split
+    }
+    return input.split(",").map((f) => f.trim()).filter(Boolean);
+  }
+  return [];
+};
+
+
 export const createProject = async (req, res, next) => {
   try {
     const {
@@ -78,7 +100,8 @@ export const createProject = async (req, res, next) => {
       projectTitle,
       location,
       clientName,
-      projectValue,
+      // projectValue,
+       technicalFeatures: normalizeFeatures(req.body.technicalFeatures),
       category,
       status,
       projectDescription,
@@ -199,7 +222,7 @@ export const updateProject = async (req, res, next) => {
       "projectTitle",
       "location",
       "clientName",
-      "projectValue",
+      // "projectValue",
       "category",
       "status",
       "projectDescription",
@@ -207,6 +230,11 @@ export const updateProject = async (req, res, next) => {
     for (const f of updatable) {
       if (req.body[f] !== undefined) project[f] = req.body[f];
     }
+
+    if (req.body.technicalFeatures !== undefined) {
+      project.technicalFeatures = normalizeFeatures(req.body.technicalFeatures);
+    }
+
     if (req.body.featured !== undefined) {
       project.featured = req.body.featured === "true" || req.body.featured === true;
     }
